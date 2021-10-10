@@ -1,0 +1,8 @@
+body {
+  background: linen;
+}
+
+svg {
+  border: 1px solid coral;
+  overflow: visible;
+}
