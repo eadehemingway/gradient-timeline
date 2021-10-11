@@ -43,15 +43,37 @@ const path = d3.select(".base-path").node();
 
 const split_paths = pathSplitter(path);
 
+{
+  /* <linearGradient id="Gradient1">
+  <stop class="stop1" offset="0%" />
+  <stop class="stop3" offset="100%" />
+</linearGradient>; */
+}
+
 const splits_select = d3.select("svg").selectAll(".split").data(split_paths);
-const splits_enter = splits_select
-  .enter()
+const splits_enter = splits_select.enter().append("g").attr("class", "split");
+
+splits_enter
+  .append("linearGradient")
+  .attr("id", (d, i) => `lg${i}`)
+  .attr("gradientTransform", (d) => `rotate(${d.raw_angle})`);
+
+const gradients = splits_enter.select("linearGradient");
+
+gradients.append("stop").attr("offset", "0%");
+gradients.append("stop").attr("offset", "100%");
+
+const stops = gradients.selectAll("stop");
+stops.attr("stop-color", (d, i) => (i % 2 == 0 ? "red" : "blue"));
+
+splits_enter
   .append("path")
   .attr("class", "split")
   .attr("fill", "coral")
   .attr("stroke-width", "5rem")
   .attr("stroke-linecap", "round")
-  .attr("stroke", (d, i) => `rgb(${i / 2},255,255)`)
+  .attr("stroke", (d, i) => `url(#lg${i})`)
+  // .attr("stroke", (d, i) => `rgb(${i / 2},255,255)`)
   .attr("d", (d, i) =>
     i + 1 < split_paths.length
       ? `M ${d.x} ${d.y} ${split_paths[i + 1].x} ${split_paths[i + 1].y}`

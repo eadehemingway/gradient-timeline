@@ -31,6 +31,7 @@ function pathSplitter(path) {
 
     const parsed_angle = Math.abs(Math.abs(raw_angle_in_degrees) - 90);
     point.angle = parsed_angle;
+    point.raw_angle = raw_angle_in_degrees;
 
     if (cumulative_angle + parsed_angle > angle_max) {
       sections_array.push(point);
