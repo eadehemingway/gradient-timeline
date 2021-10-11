@@ -52,4 +52,8 @@ const splits_enter = splits_select
   .attr("stroke-width", "5rem")
   .attr("stroke-linecap", "round")
   .attr("stroke", (d, i) => `rgb(${i / 2},255,255)`)
-  .attr("d", (d) => `M ${d[0].x} ${d[0].y} ${d[1].x} ${d[1].y}`);
+  .attr("d", (d, i) =>
+    i + 1 < split_paths.length
+      ? `M ${d.x} ${d.y} ${split_paths[i + 1].x} ${split_paths[i + 1].y}`
+      : null
+  );
