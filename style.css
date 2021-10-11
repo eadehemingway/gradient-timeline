@@ -1,8 +1,14 @@
 body {
   background: linen;
+  text-align: center;
 }
 
 svg {
   border: 1px solid coral;
   overflow: visible;
+  margin-top: 200px;
 }
+
+/* svg path, svg line {
+    fill: none
+} */
